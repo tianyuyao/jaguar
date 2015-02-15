@@ -1,0 +1,93 @@
+ArrayDB --- C++ Lightning Fast Database
+            Exeray Inc
+
+SYSTEM REQUIREMENTS:
+============================================================================
+The distribution is for any Linux 64 bit system.
+
+
+HOW TO INSTALL:
+============================================================================
+
+Execute the following script with root or sudo acccount:
+
+# ./install.sh
+
+
+HOW TO CREATE A DATABASE:
+============================================================================
+Run this command as user rdb:
+# su - rdb
+$ rdbadmin createdb <databasename>
+
+Example:
+$ rdbadmin createdb mydb
+
+
+HOW TO DROP A DATABASE:
+============================================================================
+Run this command as user rdb:
+$ rdbadmin dropdb <databasename>
+
+Example:
+$ rdbadmin dropdb mydb
+
+
+HOW TO ADD A USER ACCOUNNT TO THE DATABASE:
+============================================================================
+Run this command as user rdb:
+$ rdbadmin  createuser  <username:password> 
+
+Example:
+$ rdbadmin  createuser  test:test
+
+The user account created has read permission only.
+
+
+HOW TO DROP A USER ACCOUNNT FROM THE DATABASE:
+============================================================================
+Run this command as user rdb:
+$ rdbadmin  dropuser  <username>
+
+Example:
+$ rdbadmin  dropuser  test
+
+
+HOW TO MAKE A USER HAVE DATABASE WRITE (or READ) PERMISSION:
+============================================================================
+Run this command as user rdb:
+$ rdbadmin  perm   <username:read/write>  
+
+Example:
+$ rdbadmin  perm test:write
+
+
+HOW TO MAKE ASSIGN A USER ACCOUNT ADMIN ROLE:
+============================================================================
+Run this command as user rdb:
+$ rdbadmin  role   <username:admin/user> 
+
+Example:
+$ rdbadmin  role   test:admin 
+This will allow user 'test' to have admin rights (to read/write system tables).
+
+
+A regular user can have either read or write permission. So does an admin user.
+An admin user having read permission can only read from system tables.
+
+
+
+HOW TO START/STOP ArrayDB Server:
+============================================================================
+
+To startup the rdb server, login as rdb user:
+
+# su - rdb
+$ rdbstart.sh 
+
+
+To stop the rdb server, execute the following command:
+
+# su - rdb
+$ rdbstop.sh
+

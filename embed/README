@@ -1,0 +1,39 @@
+ArrayDB - C++ Lightning Fast Database Client
+
+HOW TO INSTALL:
+==============================================================================
+
+As root, execute:
+# ./install.sh
+
+
+HOW TO PROGRAM:
+==============================================================================
+
+Refer to rdbtest.cc for C++ programming of ArrayDB embedded database.
+
+
+
+HOW TO COMPILE:
+==============================================================================
+
+$ make 
+
+
+
+HOW TO RUN THE PROGRAM:
+==============================================================================
+Usage:  ./rdbtest  N   [concurrent]
+   N            (The number of data items to be inserted)
+   concurrent   (1: allows multi-thread concurrent operations; 0: No multi-thread support. Default: 0 )
+
+Examples:
+./rdbtest  10000
+./rdbtest  10000  1
+
+
+If the concurrent flag is set to 1, the operations on the array database file are
+executed with proper write or read locks for multi-threaded programs. Currently the locks
+are applied on the whole database file. Record-based locking will be implemented in the
+future to increase a much higher degree of concurrency.
+

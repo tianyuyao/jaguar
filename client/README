@@ -1,0 +1,171 @@
+ArrayDB - C++ Lightning Fast Database Client
+
+HOW TO INSTALL:
+==============================================================================
+
+As root, execute:
+# ./install.sh
+
+
+
+HOW TO USE INTERACTIVE SHELL:
+==============================================================================
+Usage:
+
+Run the client program 'rdb' from any user account:
+
+$ rdb -u test -p test -d test -h 127.0.0.1:8888 
+$ rdb -u test -p test -d test 
+  (Default host is 127.0.0.1 and port in $HOME/.rdb/rdb.conf or /etc/rdb.conf )
+
+
+Create table:
+---------------------------------------------------------------------------------
+rdb>  create table user ( key: uid char(20), zip char(12), value:  city char(32), score int(6), fill char(300) );
+rdb>  create table product ( key: prodid char(20), value:  color char(32), price int(6), review char(300) );
+rdb>  create table product ( key: prodid char(20), value:  anything char(1024) );
+
+
+Insert data:
+---------------------------------------------------------------------------------
+Key fields are required. Value fields can be anything as long they fit into the total space in the value setion of schema.
+In other words, the key part has schema. The value part does not have schema. Any value fields can be
+inserted into the value part as long the space has enough capacity specified in the create table command.
+
+rdb>  insert into user ( [uid='larryzhou', zip='993842'], [ city='shanghai', score=180, wechat='larryzhouwx' ] );
+rdb>  insert into user ( [uid='tonyliu', zip='993844'], [ province='shanghai', email='tliu@yahoo.com', phone='(925)333-9999' ] );
+rdb>  insert into product ( [prodid='tonyliu' ], [ weight='111', size=320, year=1999 ] );
+
+
+Load file:
+-------------------------------------------------------------------------------------
+rdb> load file /path/input.txt into TABLE [format F] [columns terminated by C] [lines terminated by N] [quote terminated by Q];
+(Instructions inside [ ] are optional)
+Default values:
+   columns terminated by: ','
+   lines terminated by: '\n'
+   columns are not quoted by any characters.
+
+Example:
+rdb> load file /tmp/input.txt into user format S;
+rdb> load file /tmp/input.txt into user format V columns terminated by ',';
+rdb> load file /tmp/input.txt into user format V quote terminated by ''';
+rdb> load file /tmp/input.txt into user format H columns terminated by ',';
+rdb> load file /tmp/input.txt into user format H quote terminated by ''';
+rdb> load file /tmp/input.txt into user format N;
+rdb> load file /tmp/input.txt into user format N columns terminated by ',';
+rdb> load file /tmp/input.txt into user format N quote terminated by ''';
+
+If the formar is H, then the first line of /tmp/input.txt should be a list of column names
+separated by a comma ','. Example:  fname,lname,addr,phone,email,age
+
+Format S:  kye,value
+Format V:  key1,key2,key3,...,name1=value1,name2=value2,...
+Format V:  'key1','key2','key3',...,name1='value1',name2='value2',...
+Format H:  key2,key1,value3,key3,value1,...
+Format H:  'key2','key1','value3','key3','value1',...
+Format N:  native format recognized by rdbserv:
+           ddddddkkkkkkkkkkkddddddkkkkkkkddddddkkkkkkk|dddddd<rayrecord>
+
+
+To create sample data for loading, you can use the genrand program. The output file
+is genrand.out which can be loaded into tables from the rdb client shell program.
+
+
+
+Select data:
+---------------------------------------------------------------------------------
+rdb> select * from user;
+rdb> select uid, city from user;
+rdb> select uid, city from user limit 100;
+rdb> select uid, province, phone from user limit 1000,100;
+rdb> select uid, city from user limit 100 outfile /tmp/mylogfile.txt
+rdb> select prodid, weight, size, model  from product where prodid='fei100' and ssn='dddddd';
+rdb> select * from product where prodid >= 'fei100' and ssn <= 'dddddd';
+rdb> select * from product where prodid between 'a000' and 'c123';
+
+
+Join tables:
+------------------------------------------------------------------------------------------------------
+rdb> select user.uid, user.city, user2.zip join (user, user2 ) outfile /tmp/user_user2.out;
+rdb> select user.uid, user.city, user2.zip, room.number join (user, user2, room );
+rdb> select user.uid, user.city, user2.zip, room.number join (user, user2, room ) limit 100;
+rdb> select user.uid, user.city  join (user, user2, room ) limit 100 outfile /tmp/user2room.out;
+
+
+Update:
+----------------------------------------------------------------------------------------------------
+rdb> update user set ssn='000-00-0000', addr='upda' where uid=1234 and name='abyz';
+rdb> update user set ssn='000-00-0000', addr='upda' where uid >= 1234;
+
+
+Delete:
+-------------------------------------------------------------------------------------------------
+rdb> delete from user where uid=1234 and name='john';
+rdb> delete from user where uid >= 1234;
+
+
+Count:
+rdb> select count(*) from user;
+
+
+
+Drop table:
+---------------------------------------------------------------------------------
+rdb> drop table user;
+rdb> drop table product;
+
+
+Describe table:
+---------------------------------------------------------------------------------
+rdb> desc  user;
+rdb> describe  user;
+
+
+
+HOW TO DO BENCHMARKING TESTS:
+---------------------------------------------------------------------------------
+
+rbench  [-u USERNAME -p PASSWORD -h HOST:PORT -d DATABASE -t TABLE -n IERATIONS -c CONCURRENCY -s SHOWFLAG]
+        [-f SQLFILE] [-r I:U:S] [-k 0/1]
+    USERNAME     (username of an ArrayDB account. Default: test)
+    PASSWORD     (password of an ArrayDB account. Default: test)
+    HOST:PORT    (ArrayDB database host and port. Default: 127.0.0.1:8888)
+    DATABASE     (database name. Default: test)
+    TABLE        (table name. Default: test)
+    IERATIONS    (Number of query iterations. Default: 1)
+    CONCURRENCY  (Number of concurrent queries in each iteration. Default: 1)
+    SQLFILE      (Full path of file containing query statements.)
+    SHOWFLAG     (Whether to print query results: 1 for Yes, 0 for No. Default: 0)
+    SQLFILE      (Optional. File containting RQL commands.)
+    I:U:S        (Optional. Number of Inserts, Updates, Selects in each test unit.)
+    -k 0/1       (Optional. Whether to keep test table. Default: 1 )
+
+Example:
+	./rbench -u test -p test -d test -t test123 -h 127.0.0.1:8888 -r "1000:0:0" -k 0
+	(This will create table test123 and insert 1000 records.)
+
+	./rbench -u test -p test -d test -t test123 -h 127.0.0.1:8888 -r "1000:10:0" -k 0
+	(This will create table test123, insert 1000 records, and update 10 records.)
+
+	./rbench -u test -p test -d test -t test123 -h 127.0.0.1:8888 -r "0:0:1000" -k 1
+	(This will select data 1000 times from table test123.)
+
+	./rbench -u test -p test -d test -t test123 -h 127.0.0.1:8888 -r "0:10000:1000" -k 1
+	(This will perform update 1000 times, and select 1000 times in table test123.)
+
+	./rbench -u test -p test -d test -t test123 -h 127.0.0.1:8888 -c 3 -r "1000:0:0" -k 0
+	(This will create table test123 and insert 1000 records in 3 concurrent threads.)
+
+	./rbench -u test -p test -d test -t test123 -h 127.0.0.1:8888 -n 10 -f test.sql 
+	(This will execute commands in file test.sql and repeat 10 times.)
+
+
+Client C/C++ Programming Language API
+======================================================================================
+
+Build your rdb client program:
+    $  g++  example.cc -o example -lrdbclient
+
+
+=====
