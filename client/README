@@ -3,8 +3,8 @@ ArrayDB - C++ Lightning Fast Database Client
 HOW TO INSTALL:
 ==============================================================================
 
-As root, execute:
-# ./install.sh
+As any user, execute:
+$ ./install.sh
 
 
 
