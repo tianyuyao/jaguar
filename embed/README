@@ -3,8 +3,8 @@ ArrayDB - C++ Lightning Fast Database Client
 HOW TO INSTALL:
 ==============================================================================
 
-As root, execute:
-# ./install.sh
+As any user, execute:
+$ ./install.sh
 
 
 HOW TO PROGRAM:
@@ -18,6 +18,9 @@ HOW TO COMPILE:
 ==============================================================================
 
 $ make 
+
+You may need to use -I$HOME/arraydb/include and -L$HOME/arraydb/lib arguments
+to g++ compiler and linker.
 
 
 
