@@ -9,15 +9,15 @@ The distribution is for any Linux 64 bit system.
 HOW TO INSTALL:
 ============================================================================
 
-Execute the following script with root or sudo acccount:
+Execute the following script in any user acccount:
 
-# ./install.sh
+$ ./install.sh
+
+Files will be installed in $HOME/arraydb/ directory.
 
 
 HOW TO CREATE A DATABASE:
 ============================================================================
-Run this command as user rdb:
-# su - rdb
 $ rdbadmin createdb <databasename>
 
 Example:
@@ -80,14 +80,12 @@ An admin user having read permission can only read from system tables.
 HOW TO START/STOP ArrayDB Server:
 ============================================================================
 
-To startup the rdb server, login as rdb user:
+To startup the rdb server:
 
-# su - rdb
-$ rdbstart.sh 
+$ $HOME/arraydb/bin/rdbstart.sh 
 
 
-To stop the rdb server, execute the following command:
+To stop the rdb server:
 
-# su - rdb
-$ rdbstop.sh
+$ $HOME/arraydb/bin/rdbstop.sh
 
