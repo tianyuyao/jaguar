@@ -1,8 +1,9 @@
 
 ArrayDB -- next generation database and data warehouse for enterprises
 
-ArrayDB is a commercial, blazing fast analytical database for big data. It uses an innovative 
-array-indexing technology in data access path. Compared to traditional B+Tree in relational
-database software, ArrayDB employs plain arrays in data indexing. Arrays have excellent data
-locality, read-ahead, and caching properties. The core storage and indexing engine is 10X - 50X
-faster than B+Tree and uses less memory.
+ArrayDB is a commercial, blazing fast analytical database for big data. It uses an 
+innovative array-indexing technology in data access path. Compared to traditional 
+B+Tree in relational database software, ArrayDB employs plain arrays in data indexing.
+Arrays have excellent data locality, read-ahead, and caching properties. The core
+storage and indexing engine is 10X - 50X faster than B+Tree, therefore table join 
+and range search operations are extremely fast.
