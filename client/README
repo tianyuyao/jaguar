@@ -139,22 +139,22 @@ abench  [-u USERNAME -p PASSWORD -h HOST:PORT -n IERATIONS -c CONCURRENCY -s SHO
     TABLE        (table name: abench)
 
 Example:
-	./rbench -u test -p test  -h 127.0.0.1:8888 -r "1000:0:0" 
+	./abench -u test -p test  -h 127.0.0.1:8888 -r "1000:0:0" 
 	(This will create table abench and insert 1000 records.)
 
-	./rbench -u test -p test -h 127.0.0.1:8888 -r "1000:10:0" 
+	./abench -u test -p test -h 127.0.0.1:8888 -r "1000:10:0" 
 	(This will insert 1000 records, and update 10 records.)
 
-	./rbench -u test -p test -h 127.0.0.1:8888 -r "0:0:1000" 
+	./abench -u test -p test -h 127.0.0.1:8888 -r "0:0:1000" 
 	(This will select data 1000 times from table abench )
 
-	./rbench -u test -p test -h 127.0.0.1:8888 -r "0:10000:1000" 
+	./abench -u test -p test -h 127.0.0.1:8888 -r "0:10000:1000" 
 	(This will perform update 1000 times, and select 1000 times in table abench )
 
-	./rbench -u test -p test -h 127.0.0.1:8888 -c 3 -r "1000:0:0" 
+	./abench -u test -p test -h 127.0.0.1:8888 -c 3 -r "1000:0:0" 
 	(This will insert 1000 records in 3 concurrent threads.)
 
-	./rbench -u test -p test -h 127.0.0.1:8888 -n 10 -f test.sql 
+	./abench -u test -p test -h 127.0.0.1:8888 -n 10 -f test.sql 
 	(This will execute commands in file test.sql and repeat 10 times.)
 
 
