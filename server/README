@@ -18,57 +18,57 @@ Files will be installed in $HOME/arraydb/ directory.
 
 HOW TO CREATE A DATABASE:
 ============================================================================
-$ rdbadmin createdb <databasename>
+$ adbadmin createdb <databasename>
 
 Example:
-$ rdbadmin createdb mydb
+$ adbadmin createdb mydb
 
 
 HOW TO DROP A DATABASE:
 ============================================================================
-Run this command as user rdb:
-$ rdbadmin dropdb <databasename>
+Run this command:
+$ adbadmin dropdb <databasename>
 
 Example:
-$ rdbadmin dropdb mydb
+$ adbadmin dropdb mydb
 
 
 HOW TO ADD A USER ACCOUNNT TO THE DATABASE:
 ============================================================================
-Run this command as user rdb:
-$ rdbadmin  createuser  <username:password> 
+Run this command:
+$ adbadmin  createuser  <username:password> 
 
 Example:
-$ rdbadmin  createuser  test:test
+$ adbadmin  createuser  test:test
 
 The user account created has read permission only.
 
 
 HOW TO DROP A USER ACCOUNNT FROM THE DATABASE:
 ============================================================================
-Run this command as user rdb:
-$ rdbadmin  dropuser  <username>
+Run this command:
+$ adbadmin  dropuser  <username>
 
 Example:
-$ rdbadmin  dropuser  test
+$ adbadmin  dropuser  test
 
 
 HOW TO MAKE A USER HAVE DATABASE WRITE (or READ) PERMISSION:
 ============================================================================
-Run this command as user rdb:
-$ rdbadmin  perm   <username:read/write>  
+Run this command:
+$ adbadmin  perm   <username:read/write>  
 
 Example:
-$ rdbadmin  perm test:write
+$ adbadmin  perm test:write
 
 
 HOW TO MAKE ASSIGN A USER ACCOUNT ADMIN ROLE:
 ============================================================================
-Run this command as user rdb:
-$ rdbadmin  role   <username:admin/user> 
+Run this command:
+$ adbadmin  role   <username:admin/user> 
 
 Example:
-$ rdbadmin  role   test:admin 
+$ adbadmin  role   test:admin 
 This will allow user 'test' to have admin rights (to read/write system tables).
 
 
@@ -80,12 +80,12 @@ An admin user having read permission can only read from system tables.
 HOW TO START/STOP ArrayDB Server:
 ============================================================================
 
-To startup the rdb server:
+To startup the adb server:
 
-$ $HOME/arraydb/bin/rdbstart.sh 
+$ $HOME/arraydb/bin/adbstart
 
 
-To stop the rdb server:
+To stop the adb server:
 
-$ $HOME/arraydb/bin/rdbstop.sh
+$ $HOME/arraydb/bin/adbstop
 
