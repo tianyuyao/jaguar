@@ -32,9 +32,11 @@ Key fields are required. Value fields can be anything as long they fit into the 
 In other words, the key part has schema. The value part does not have schema. Any value fields can be
 inserted into the value part as long the space has enough capacity specified in the create table command.
 
-adb>  insert into user ( [uid='larryzhou', zip='993842'], [ city='shanghai', score=180, wechat='larryzhouwx' ] );
-adb>  insert into user ( [uid='tonyliu', zip='993844'], [ province='shanghai', email='tliu@yahoo.com', phone='(925)333-9999' ] );
-adb>  insert into product ( [prodid='tonyliu' ], [ weight='111', size=320, year=1999 ] );
+adb>  insert into user ( uid, zip, city, score, wechat ) values ( 'larryzhou', '993842', shanghai, 180, 'larryzhouwx' ); );
+adb>  insert into user ( uid, zip, email, phone ) values ( 'larryzhou', 993842, 'tliu@yahoo.com', 'larryzhouwx' ); );
+adb>  insert into product ( prodid, wt, ht, sz, yr ) values ( cam100, 12, 30, big, 2009 );
+
+(Short column names are recommended to have faster data write and read).
 
 
 Load file:
@@ -89,6 +91,7 @@ adb> select user.uid, user.city, user2.zip join (user, user2 ) outfile /tmp/user
 adb> select user.uid, user.city, user2.zip, room.number join (user, user2, room );
 adb> select user.uid, user.city, user2.zip, room.number join (user, user2, room ) limit 100;
 adb> select user.uid, user.city  join (user, user2, room ) limit 100 outfile /tmp/user2room.out;
+adb> select trxn.id, cust.custname, prod.name starjoin (trxn, prod, cust );
 
 
 Update:
