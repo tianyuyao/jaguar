@@ -32,8 +32,8 @@ Key fields are required. Value fields can be anything as long they fit into the 
 In other words, the key part has schema. The value part does not have schema. Any value fields can be
 inserted into the value part as long the space has enough capacity specified in the create table command.
 
-adb>  insert into user ( uid, zip, city, score, wechat ) values ( 'larryzhou', '993842', shanghai, 180, 'larryzhouwx' ); );
-adb>  insert into user ( uid, zip, email, phone ) values ( 'larryzhou', 993842, 'tliu@yahoo.com', 'larryzhouwx' ); );
+adb>  insert into user ( uid, zip, city, score, wechat ) values ( 'larryzhou', '993842', shanghai, 180, 'larryzhouwx' );
+adb>  insert into user ( uid, zip, email, phone ) values ( 'larryzhou', 993842, 'tliu@yahoo.com', 'larryzhouwx' );
 adb>  insert into product ( prodid, wt, ht, sz, yr ) values ( cam100, 12, 30, big, 2009 );
 
 (Short column names are recommended to have faster data write and read).
