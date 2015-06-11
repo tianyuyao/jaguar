@@ -10,7 +10,7 @@ $ ./install.sh
 HOW TO PROGRAM:
 ==============================================================================
 
-Refer to rdbtest.cc for C++ programming of ArrayDB embedded database.
+Refer to adbtest.cc for C++ programming of ArrayDB embedded database.
 
 
 
@@ -26,13 +26,13 @@ to g++ compiler and linker.
 
 HOW TO RUN THE PROGRAM:
 ==============================================================================
-Usage:  ./rdbtest  N   [concurrent]
+Usage:  ./adbtest  N   [concurrent]
    N            (The number of data items to be inserted)
    concurrent   (1: allows multi-thread concurrent operations; 0: No multi-thread support. Default: 0 )
 
 Examples:
-./rdbtest  10000
-./rdbtest  10000  1
+./adbtest  10000
+./adbtest  10000  1
 
 
 If the concurrent flag is set to 1, the operations on the array database file are
