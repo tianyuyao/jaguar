@@ -3,8 +3,7 @@ ArrayDB --- C++ Lightning Fast Database
 
 SYSTEM REQUIREMENTS:
 ============================================================================
-The distribution is for any Linux 64 bit system.
-
+The distribution is for any Linux 64 bit system and Windows 64 bit system.
 
 HOW TO INSTALL:
 ============================================================================
@@ -14,6 +13,9 @@ Execute the following script in any user acccount:
 $ ./install.sh
 
 Files will be installed in $HOME/arraydb/ directory.
+
+(If you are installing on Windows 64 bit host, it is recommended to
+install Cygwin and run the installation command in cygwin).
 
 
 HOW TO CREATE A DATABASE:
