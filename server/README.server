@@ -20,28 +20,28 @@ $ export PATH=$PATH:$HOME/jagguar/bin
 HOW TO CREATE A DATABASE:
 ============================================================================
 Run this command:
-$ jagadmin createdb <databasename>
+$ jadmin createdb <databasename>
 
 Example:
-$ jagadmin createdb mydb
+$ jadmin createdb mydb
 
 
 HOW TO DROP A DATABASE:
 ============================================================================
 Run this command:
-$ jagadmin dropdb <databasename>
+$ jadmin dropdb <databasename>
 
 Example:
-$ jagadmin dropdb mydb
+$ jadmin dropdb mydb
 
 
 HOW TO ADD A USER ACCOUNNT TO THE DATABASE:
 ============================================================================
 Run this command:
-$ jagadmin  createuser  <username:password> 
+$ jadmin  createuser  <username:password> 
 
 Example:
-$ jagadmin  createuser  test:test
+$ jadmin  createuser  test:test
 
 The user account created has read permission only.
 
@@ -49,28 +49,28 @@ The user account created has read permission only.
 HOW TO DROP A USER ACCOUNNT FROM THE DATABASE:
 ============================================================================
 Run this command:
-$ jagadmin  dropuser  <username>
+$ jadmin  dropuser  <username>
 
 Example:
-$ jagadmin  dropuser  test
+$ jadmin  dropuser  test
 
 
 HOW TO MAKE A USER HAVE DATABASE WRITE (or READ) PERMISSION:
 ============================================================================
 Run this command:
-$ jagadmin  perm   <username:read/write>  
+$ jadmin  perm   <username:read/write>  
 
 Example:
-$ jagadmin  perm test:write
+$ jadmin  perm test:write
 
 
 HOW TO MAKE ASSIGN A USER ACCOUNT ADMIN ROLE:
 ============================================================================
 Run this command:
-$ jagadmin  role   <username:admin/user> 
+$ jadmin  role   <username:admin/user> 
 
 Example:
-$ jagadmin  role   test:admin 
+$ jadmin  role   test:admin 
 This will allow user 'test' to have admin rights (to read/write system tables).
 
 
@@ -84,7 +84,7 @@ HOW TO START/STOP Jaguar Server:
 
 1. In Stand-alone environment ( CLUSTER_MODE=no in jagguar.conf):
 
-    Make sure you have used jagadmin to create your database and users.
+    Make sure you have used jadmin to create your database and users.
 
     Then on each server in the cluster:
     $ $HOME/jagguar/bin/jdbstart
@@ -127,7 +127,7 @@ HOW TO START/STOP Jaguar Server:
 
   2.6) Make sure you have the same conf/jagguar.conf on each serer host
   2.7) Make sure you have the same conf/host.conf on each serer host
-  2.8) Make sure you have used jagadmin to create your database and users.
+  2.8) Make sure you have used jadmin to create your database and users.
 
 
   After the above enviroment is setup, you can start the object server jobserv on all
