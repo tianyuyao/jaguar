@@ -14,7 +14,7 @@ $ ./install.sh
 
 SETUP PATH:
 ============================================================================
-$ export PATH=$PATH:$HOME/jagguar/bin
+$ export PATH=$PATH:$HOME/jaguar/bin
 
 
 HOW TO CREATE A DATABASE:
@@ -82,12 +82,12 @@ An admin user having read permission can only read from system tables.
 HOW TO START/STOP Jaguar Server:
 ============================================================================
 
-1. In Stand-alone environment ( CLUSTER_MODE=no in jagguar.conf):
+1. In Stand-alone environment ( CLUSTER_MODE=no in jaguar.conf):
 
     Make sure you have used jadmin to create your database and users.
 
     Then on each server in the cluster:
-    $ $HOME/jagguar/bin/jdbstart
+    $ $HOME/jaguar/bin/jdbstart
     
     To stop the server:
     $ jdbstop
@@ -95,11 +95,11 @@ HOW TO START/STOP Jaguar Server:
     (jobserv process is not needed in a stand-alone environment)
 
 
-2. In cluster environment (CLUSTER_MODE=yes in jagguar.conf)
+2. In cluster environment (CLUSTER_MODE=yes in jaguar.conf)
 
   2.1) Install glusterfs, or ceph, or any distributed file system (DFS) on al your server hosts
   2.2) Create mount directory from your installed DFS system on all the server hosts
-  2.3) Save the server hosts in $HOME/jagguar/conf/host.conf, which should has the following format:
+  2.3) Save the server hosts in $HOME/jaguar/conf/host.conf, which should has the following format:
 
 	   host.conf:
 
@@ -115,17 +115,17 @@ HOW TO START/STOP Jaguar Server:
 	  (It is recommended you use IP addresses for the hostnames)
 
 
-  2.4) $HOME/jagguar/conf/jagguar.conf should set CLUSTER_MODE=yes 
-  2.5) $HOME/jagguar/data should soft-linked to the mount point in the DFS.
+  2.4) $HOME/jaguar/conf/jaguar.conf should set CLUSTER_MODE=yes 
+  2.5) $HOME/jaguar/data should soft-linked to the mount point in the DFS.
        For example, if the created DFS mount point is /mnt/jaguar/data,
 	   then you can execute this command to set the data directory:
 
-	   $ unlink $HOME/jagguar/data
-	   $ ln -s /mnt/jaguar/data $HOME/jagguar/data 
+	   $ unlink $HOME/jaguar/data
+	   $ ln -s /mnt/jaguar/data $HOME/jaguar/data 
 
 	  The mount point and the softlink must be setup on each server host (primary and backup).
 
-  2.6) Make sure you have the same conf/jagguar.conf on each serer host
+  2.6) Make sure you have the same conf/jaguar.conf on each serer host
   2.7) Make sure you have the same conf/host.conf on each serer host
   2.8) Make sure you have used jadmin to create your database and users.
 
@@ -133,17 +133,17 @@ HOW TO START/STOP Jaguar Server:
   After the above enviroment is setup, you can start the object server jobserv on all
   the server hosts:
 
-    $ $HOME/jagguar/bin/jobstart
+    $ $HOME/jaguar/bin/jobstart
     
-    ( To stop the server: $ $HOME/jagguar/bin/jobstop )
+    ( To stop the server: $ $HOME/jaguar/bin/jobstop )
     
   After all object servers (jobserv) have been successfully started on the server hosts,
   then you can start the server jdbserv on all the server hosts:
 
     Then on each server in the cluster:
-    $ $HOME/jagguar/bin/jdbstart
+    $ $HOME/jaguar/bin/jdbstart
     
-    ( To stop the server, execute: $ $HOME/jagguar/bin/jdbstop )
+    ( To stop the server, execute: $ $HOME/jaguar/bin/jdbstop )
 
 
   Finally you can use the jag client program to connect to any of the server hosts
