@@ -6,7 +6,7 @@
 #
 # Command Line:
 #  adb -u user_myArrayDB1 -p password -d myArrayDB1 -h 127.0.0.1:8888 -v yes < mycommands.sql > testBatchSQL.log
-#
+# Updated on: 08/s4/2015
 
 # Test 1-1. Create tables
 #########################
