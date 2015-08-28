@@ -69,7 +69,8 @@ jag -u user_myArrayDB1 -p password -d myArrayDB1  -h 127.0.0.1:9000 -v yes < arr
 
 
 # Basic Data Query performance Test
-
+exit
+# We will update the rest of the test soon...
 echo "" 2>&1 | tee -a $logf
 echo "##################################################################" 2>&1 | tee -a $logf
 echo "Basic concurrent request and load performance test by \"abench\" "  2>&1 | tee -a $logf
