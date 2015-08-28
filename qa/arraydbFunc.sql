@@ -1,6 +1,6 @@
 # Automation1 for ArrayDB Acceptance Test 
 # Create on: 06/11/2015
-# Updated on: 06/14/2015
+# Updated on: 08/28/2015
 # Created by: Andrew Zhang
 # Purpose: Minimum test cases covers all the basic SQL syntax for arraydb.
 #
