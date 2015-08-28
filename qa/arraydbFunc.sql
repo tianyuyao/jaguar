@@ -36,7 +36,7 @@ desc arraydbFunc1;
 
 # Test 2-1: Load a 10k row text file in foramt H:
 #################################################
-load file $HOME/arrardbTestHome/10kLine.txt into arraydbFunc2 format H;
+load file $HOME/jaguarTestData/10kLine.txt into arraydbFunc2 format H;
 
 # Test 2-2: Basic query 
 ##########################
