@@ -1,2 +1,11 @@
 This directory is for QA test.
-# 2015/08/14 Andrew 
+# 2015/08/28 Andrew
+
+After we successfully downloaded and install a jaguar build. we can run this test as an acceptance test, which covers most 
+of the basic sql syntax.
+
+Note:  please copy the data folder jaguarTestData into the home directory $HOME, so the 
+arraydbFunc.sq will load data properly.
+
+On the command line, run: "./arraydbMainFunc.sh", you will get a log file with a time stamp attached after the test. 
+The log file's format looks like this: "arraydbFunc_sql_20150828_130915.log"
