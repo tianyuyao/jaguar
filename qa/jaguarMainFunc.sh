@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Main test to control the batch sql
-# Script Name: arraydbMainFunc.sh
+# Script Name: jaguarMainFunc.sh
 # Created by: Andrew Zhang
 # Date: June 27, 2015
 #
@@ -9,7 +9,7 @@
 # Test 1:
 # Login as root to create database and grant ussers;
 
-logf="arraydbFunc_sql_`date +%Y%m%d_%H%M%S`.log"
+logf="jaguarFunc_sql_`date +%Y%m%d_%H%M%S`.log"
 
 
 echo "##### Main Function Test #####" 2>&1 | tee -a $logf
@@ -65,7 +65,7 @@ echo "Now run aydbFunc.sql: " 2>&1 | tee -a $logf
 echo "#####################" 2>&1 | tee -a $logf 
 
 
-jag -u user_myArrayDB1 -p password -d myArrayDB1  -h 127.0.0.1:9000 -v yes < arraydbFunc.sql 2>&1 | tee -a $logf
+jag -u user_myArrayDB1 -p password -d myArrayDB1  -h 127.0.0.1:8888  -v yes < jaguarFunc.sql 2>&1 | tee -a $logf
 
 
 # Basic Data Query performance Test
@@ -108,8 +108,8 @@ echo "###############################################################" 2>&1 | te
 echo "abench -r \"2000:0:8000\" -c 4 " 2>&1 | tee -a $logf
 abench -r "2000:0:8000" -c 4 2>&1 | tee -a $logf
 
-#$HOME/arraydb/bin/adbstop 2>&1 | tee -a $logf
+#$HOME/jaguar/bin/adbstop 2>&1 | tee -a $logf
 
-# More tests based on the https://github.com/exeray/arraydb/blob/master/ArrayDBProdIntro.pdf
+# More tests based on the https://github.com/exeray/jaguar/blob/master/ArrayDBProdIntro.pdf
 
 
