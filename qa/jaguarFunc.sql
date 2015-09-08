@@ -5,7 +5,7 @@
 # Purpose: Minimum test cases covers all the basic SQL syntax for jaguar.
 #
 # Command Line:
-#  adb -u user_myArrayDB1 -p password -d myArrayDB1 -h 127.0.0.1:8888 -v yes < mycommands.sql > testBatchSQL.log
+#  jag -u user_myArrayDB1 -p password -d myArrayDB1 -h 127.0.0.1:8888 -v yes < mycommands.sql > testBatchSQL.log
 # Updated on: 08/s4/2015
 
 # Test 1-1. Create tables
@@ -61,30 +61,30 @@ select * from jaguarFunc2 where uid=4;
 update jaguarFunc2 set v2='v2 is From yyyy to y2y2y2' where uid=4;
 select * from jaguarFunc2 where  uid=4;
 
-create table user ( key: fname char(10), lname char(12), value: age int(3), address char(128) );
-insert into user ( fname, lname, age, address) values ( 'Larry', 'Patterson', 40, 'lpat@yahoo.com' );
-insert into user ( fname, lname, age, address) values ( 'Andrew', 'Zhang', 500, 'agz1117@hotmail.com' );
-insert into user ( fname, lname, age, address) values ( 'Jason', 'Zhang', 18, 'agz1117@hotmail.com' );
+create table test_user ( key: fname char(10), lname char(12), value: age int(3), address char(128) );
+insert into test_user ( fname, lname, age, address) values ( 'Larry', 'Patterson', 40, 'lpat@yahoo.com' );
+insert into test_user ( fname, lname, age, address) values ( 'Andrew', 'Zhang', 500, 'agz1117@hotmail.com' );
+insert into test_user ( fname, lname, age, address) values ( 'Jason', 'Zhang', 18, 'agz1117@hotmail.com' );
 
-update user set address = jason.zhang@gmail.com where  fname = Jason and lname = Zhang;
-select * from user;
+update test_user set address = jason.zhang@gmail.com where  fname = Jason and lname = Zhang;
+select * from test_user;
 
-update user set age  = 50  where  fname = Andrew and lname = Zhang;
-select * from user;
+update test_user set age  = 50  where  fname = Andrew and lname = Zhang;
+select * from test_user;
 
-update user set fname  = Andy where  fname = Andrew and lname = Zhang;
-select * from user;
-select count(*) from user;
+update test_user set fname  = Andy where  fname = Andrew and lname = Zhang;
+select * from test_user;
+select count(*) from test_user;
 
 ########################################
 # Test 5-1: Delete data from table user
 #######################################
-delete from user;
-select count(*) from user;
-select * from user;
+delete from test_user;
+select count(*) from test_user;
+select * from test_user;
 
 show tables;
-drop table user;
+drop table test_user;
 show tables;
 
 #################################################

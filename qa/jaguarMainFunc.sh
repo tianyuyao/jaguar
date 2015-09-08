@@ -7,49 +7,53 @@
 #
 
 # Test 1:
-# Login as root to create database and grant ussers;
+# Create database and grant ussers; 
 
-logf="jaguarFunc_sql_`date +%Y%m%d_%H%M%S`.log"
+/bin/mkdir -p jaguarMainFunc.log
+logf="jaguarMainFunc.log/jaguarFunc_sql_`date +%Y%m%d_%H%M%S`.log"
+export PATH=$PATH:$HOME/jaguar/bin
 
 
 echo "##### Main Function Test #####" 2>&1 | tee -a $logf
 echo "##############################" 2>&1 | tee -a $logf
 
-echo "Part 1: Now Running: Use adbadmin to create user, db, etc" 2>&1 | tee -a $logf
+echo "Part 1: Now Running: Use jadmin to create user, db, etc" 2>&1 | tee -a $logf
 echo "#########################################################" 2>&1 | tee -a $logf
 echo " "  >> $logf
 
-# Stop adb is it's running:
-$HOME/jaguar/bin/jobstop 2>&1 | tee -a $logf
-echo "Stop jodbstop...wait for 5 second"
-sleep 5
+# Stop jdb is it's running:
+#$HOME/jaguar/bin/jobstop 2>&1 | tee -a $logf
+#echo "Stop jodbstop...wait for 5 second"
+#sleep 5
 
 $HOME/jaguar/bin/jdbstop 2>&1 | tee -a $logf
-echo "Stop adbstop...wait for 5 second"
+echo "Stop jdbstop...wait for 5 second"
 sleep 5
 
 # Test delete and create database
-jadmin dropdb myArrayDB1 2>&1 | tee -a $logf
-jadmin createdb myArrayDB1 2>&1 | tee -a $logf
+jadmin dropdb myJaguar1 2>&1 | tee -a $logf
+jadmin createdb myJaguar1 2>&1 | tee -a $logf
 
-jadmin createdb myArrayDB2 2>&1 | tee -a $logf
-jadmin createuser user_myArrayDB1:password 2>&1 | tee -a $logf
-jadmin createuser user_myArrayDB2:password 2>&1 | tee -a $logf
+jadmin createdb myJaguar2 2>&1 | tee -a $logf
+jadmin createuser user_myJaguar1:password 2>&1 | tee -a $logf
+jadmin createuser user_myJaguar2:password 2>&1 | tee -a $logf
 
-jadmin dropdb myArrayDB2 2>&1 | tee -a $logf
-jadmin dropuser user_myArrayDB2 2>&1 | tee -a $logf
+jadmin dropdb myJaguar2 2>&1 | tee -a $logf
+jadmin dropuser user_myJaguar2 2>&1 | tee -a $logf
 
-# Test create users for abench test
+# Test create users for jbench test
 jadmin createuser test:test 2>&1 | tee -a $logf
 jadmin listusers 2>&1 | tee -a $logf
 
 
 # Start arrary db:
-$HOME/jaguar/bin/jobstart 2>&1 | tee -a $logf
-echo "Start jobserver, wait for 5 sec..."
-sleep 5
+#$HOME/jaguar/bin/jobstart 2>&1 | tee -a $logf
+#echo "Start jobserver, wait for 5 sec..."
+#sleep 5
 
-$HOME/jaguar/bin/jdbstart 2>&1 | tee -a $logf
+echo "start jdbserv ..."
+#$HOME/jaguar/bin/jdbstart 2>&1 | tee -a $logf
+$HOME/jaguar/bin/jdbstart
 echo "start jdbserv, wait for 5 sec."
 sleep 5
 
@@ -57,7 +61,7 @@ echo "Now run aydbFunc.sql:" 2>&1 | tee -a $logf
 echo "#####################" 2>&1 | tee -a $logf
 
 ps -ef |grep jdbserv 2>&1 | tee -a $logf
-ps -ef |grep jobserv 2>&1 | tee -a $logf
+#ps -ef |grep jobserv 2>&1 | tee -a $logf
 
 
 echo "" 2>&1 | tee -a $logf
@@ -65,51 +69,51 @@ echo "Now run aydbFunc.sql: " 2>&1 | tee -a $logf
 echo "#####################" 2>&1 | tee -a $logf 
 
 
-jag -u user_myArrayDB1 -p password -d myArrayDB1  -h 127.0.0.1:8888  -v yes < jaguarFunc.sql 2>&1 | tee -a $logf
+port=`grep port $HOME/jaguar/conf/server.conf |grep -v oport |grep -v '#' | awk -F= '{print $2}'`
+jag -u user_myJaguar1 -p password -d myJaguar1  -h 127.0.0.1:$port  -v yes < jaguarFunc.sql 2>&1 | tee -a $logf
 
 
 # Basic Data Query performance Test
-exit
+#exit
 # We will update the rest of the test soon...
 echo "" 2>&1 | tee -a $logf
 echo "##################################################################" 2>&1 | tee -a $logf
-echo "Basic concurrent request and load performance test by \"abench\" "  2>&1 | tee -a $logf
+echo "Basic concurrent request and load performance test by \"jbench\" "  2>&1 | tee -a $logf
 echo "##################################################################" 2>&1 | tee -a $logf
 echo "" 2>&1 | tee -a $logf
 
-echo "1) Generate 10000 numbers randomly and insert record to abench table in the Server" 2>&1 | tee -a $logf
+echo "1) Generate 1000 numbers randomly and insert record to jbench table in the Server" 2>&1 | tee -a $logf
 echo "###################################################################################" 2>&1 | tee -a $logf
-echo "abench -r \"10000:0.0\" -c 4  " 2>&1 | tee -a $logf
-abench -r "10000:0.0" -c 4 2>&1 | tee -a $logf
+echo "jbench -r \"1000:0.0\" -h 127.0.0.1:$port -c 4  " 2>&1 | tee -a $logf
+jbench -r "1000:0.0" -h 127.0.0.1:$port  -c 4 2>&1 | tee -a $logf
 echo "" 2>&1 | tee -a $logf
 
 
-echo "2) Query server 10000 times"   2>&1 | tee -a $logf
+echo "2) Query server 1000 times"   2>&1 | tee -a $logf
 echo "#############################" 2>&1 | tee -a $logf
-echo " abench -r \"0:0:10000\" "     2>&1 | tee -a $logf
-abench -r "0:0:10000"				 2>&1 | tee -a $logf
+echo " jbench -r \"0:0:1000\" -h 127.0.0.1:$port "     2>&1 | tee -a $logf
+jbench -r "0:0:1000" -h 127.0.0.1:$port	 2>&1 | tee -a $logf
 echo "" 2>&1 | tee -a $logf
 
 
 echo "3) 100% users data inset concurrently " 2>&1 | tee -a $logf
 echo "#####################################" 2>&1 | tee -a $logf
-echo "abench -r \"10000:0:0\" -c 4" 2>&1 | tee -a $logf
-abench -r "10000:0:0" -c 4 2>&1 | tee -a $logf
+echo "jbench -r \"1000:0:0\" -h 127.0.0.1:$port -c 4" 2>&1 | tee -a $logf
+jbench -r "1000:0:0" -h 127.0.0.1:$port  -c 4 2>&1 | tee -a $logf
 echo "" 2>&1 | tee -a $logf
 
 echo "4) 100% users data query concurrently " 2>&1 | tee -a $logf
 echo "#####################################" 2>&1 | tee -a $logf
-echo "abench -r \"0:0:10000\" -c 4" 2>&1 | tee -a $logf
-abench -r "0:0:10000" -c 4 2>&1 | tee -a $logf
+echo "jbench -r \"0:0:1000\" -h 127.0.0.1:$port -c 4" 2>&1 | tee -a $logf
+jbench -r "0:0:1000" -h 127.0.0.1:$port  -c 4 2>&1 | tee -a $logf
 
 echo "" 2>&1 | tee -a $logf
 echo "5) 20% users data insert and 80% user data selection concurrently " 2>&1 | tee -a $logf
 echo "###############################################################" 2>&1 | tee -a $logf
-echo "abench -r \"2000:0:8000\" -c 4 " 2>&1 | tee -a $logf
-abench -r "2000:0:8000" -c 4 2>&1 | tee -a $logf
+echo "jbench -r \"200:0:800\" -h 127.0.0.1:$port -c 4 " 2>&1 | tee -a $logf
+jbench -r "200:0:800" -h 127.0.0.1:$port  -c 4 2>&1 | tee -a $logf
 
-#$HOME/jaguar/bin/adbstop 2>&1 | tee -a $logf
-
-# More tests based on the https://github.com/exeray/jaguar/blob/master/ArrayDBProdIntro.pdf
+#$HOME/jaguar/bin/jdbstop 2>&1 | tee -a $logf
+# More tests based on the https://github.com/exeray/jaguar/blob/master/JaguarProdIntro.pdf
 
 
