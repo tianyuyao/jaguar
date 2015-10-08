@@ -32,16 +32,20 @@ sleep 5
 
 # Test delete and create database
 jadmin dropdb myJaguar1 2>&1 | tee -a $logf
+echo "jadmin createdb myJaguar1"
 jadmin createdb myJaguar1 2>&1 | tee -a $logf
 
 jadmin createdb myJaguar2 2>&1 | tee -a $logf
+echo "jadmin createuser user_myJaguar1:password"
 jadmin createuser user_myJaguar1:password 2>&1 | tee -a $logf
 jadmin createuser user_myJaguar2:password 2>&1 | tee -a $logf
 
+echo "jadmin dropdb myJaguar2"
 jadmin dropdb myJaguar2 2>&1 | tee -a $logf
 jadmin dropuser user_myJaguar2 2>&1 | tee -a $logf
 
 # Test create users for jbench test
+echo "jadmin createuser test:test"
 jadmin createuser test:test 2>&1 | tee -a $logf
 jadmin listusers 2>&1 | tee -a $logf
 
