@@ -36,7 +36,7 @@ desc jaguarFunc1;
 
 # Test 2-1: Load a 10k row text file in foramt H:
 #################################################
-load file $HOME/jaguarTestData/10kLine.txt into jaguarFunc2 format H;
+load $HOME/jaguarTestData/10kLine.txt into jaguarFunc2;
 
 # Test 2-2: Basic query 
 ##########################
