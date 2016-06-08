@@ -1,4 +1,4 @@
-Jaguar --- Scalable Fast Distributed Data Platform  (Exeray Inc)
+Jaguar 
 
 SYSTEM REQUIREMENTS:
 ============================================================================
@@ -8,7 +8,8 @@ The distribution is for any Linux 64 bit system.
 HOW TO INSTALL:
 ============================================================================
 
-Execute the following script with any user:
+Execute the following script with any user account:
+(It is recommeded you use the same account on all hosts)
 
 $ ./install.sh
 
@@ -17,136 +18,36 @@ SETUP PATH:
 $ export PATH=$PATH:$HOME/jaguar/bin
 
 
-HOW TO CREATE A DATABASE:
-============================================================================
-Run this command:
-$ jadmin createdb <databasename>
-
-Example:
-$ jadmin createdb mydb
-
-
-HOW TO DROP A DATABASE:
-============================================================================
-Run this command:
-$ jadmin dropdb <databasename>
-
-Example:
-$ jadmin dropdb mydb
-
-
-HOW TO ADD A USER ACCOUNNT TO THE DATABASE:
-============================================================================
-Run this command:
-$ jadmin  createuser  <username:password> 
-
-Example:
-$ jadmin  createuser  test:test
-
-The user account created has read permission only.
-
-
-HOW TO DROP A USER ACCOUNNT FROM THE DATABASE:
-============================================================================
-Run this command:
-$ jadmin  dropuser  <username>
-
-Example:
-$ jadmin  dropuser  test
-
-
-HOW TO MAKE A USER HAVE DATABASE WRITE (or READ) PERMISSION:
-============================================================================
-Run this command:
-$ jadmin  perm   <username:read/write>  
-
-Example:
-$ jadmin  perm test:write
-
-
-HOW TO MAKE ASSIGN A USER ACCOUNT ADMIN ROLE:
-============================================================================
-Run this command:
-$ jadmin  role   <username:admin/user> 
-
-Example:
-$ jadmin  role   test:admin 
-This will allow user 'test' to have admin rights (to read/write system tables).
-
-
-A regular user can have either read or write permission. So does an admin user.
-An admin user having read permission can only read from system tables.
-
-
 
 HOW TO START/STOP Jaguar Server:
 ============================================================================
 
-1. In Stand-alone environment ( CLUSTER_MODE=no in jaguar.conf):
 
     Make sure you have used jadmin to create your database and users.
 
     Then on each server in the cluster:
-    $ $HOME/jaguar/bin/jdbstart
+    $ $HOME/jaguar/bin/jaguarstart
     
     To stop the server:
-    $ jdbstop
+    $ $HOME/jaguar/bin/jaguarstop
     
-    (jobserv process is not needed in a stand-alone environment)
 
+HOW TO CONFIGURE JAGUAR
+============================================================================
 
-2. In cluster environment (CLUSTER_MODE=yes in jaguar.conf)
+In  $HOME/jaguar/conf/host.conf  you must add all IP addresses
+of the hosts in your Jaguar cluster:
 
-  2.1) Install glusterfs, or ceph, or any distributed file system (DFS) on al your server hosts
-  2.2) Create mount directory from your installed DFS system on all the server hosts
-  2.3) Save the server hosts in $HOME/jaguar/conf/host.conf, which should has the following format:
-
-	   host.conf:
-
-       host1  host1_backup_host1  host1_backup_host2 (more backup hosts...)
-       host2  host2_backup_host1  host2_backup_host2 (more backup hosts...)
-       host3  host3_backup_host1  host3_backup_host2 (more backup hosts...)
-       host4  host4_backup_host1  host4_backup_host2 (more backup hosts...)
-       host5  host5_backup_host1  host5_backup_host2 (more backup hosts...)
+       IP1
+       IP2
+       IP3
+       IP4
+       IP5
+       IP6
+       IP7
+       IP8
 	   ...
 
-      The first host on each line is the primary host, where data is first saved. 
-	  The backup hosts are responsible for duplicating data from the primary host.
-	  (It is recommended you use IP addresses for the hostnames)
-
-
-  2.4) $HOME/jaguar/conf/jaguar.conf should set CLUSTER_MODE=yes 
-  2.5) $HOME/jaguar/data should soft-linked to the mount point in the DFS.
-       For example, if the created DFS mount point is /mnt/jaguar/data,
-	   then you can execute this command to set the data directory:
-
-	   $ unlink $HOME/jaguar/data
-	   $ ln -s /mnt/jaguar/data $HOME/jaguar/data 
-
-	  The mount point and the softlink must be setup on each server host (primary and backup).
-
-  2.6) Make sure you have the same conf/jaguar.conf on each serer host
-  2.7) Make sure you have the same conf/host.conf on each serer host
-  2.8) Make sure you have used jadmin to create your database and users.
-
-
-  After the above enviroment is setup, you can start the object server jobserv on all
-  the server hosts:
-
-    $ $HOME/jaguar/bin/jobstart
-    
-    ( To stop the server: $ $HOME/jaguar/bin/jobstop )
-    
-  After all object servers (jobserv) have been successfully started on the server hosts,
-  then you can start the server jdbserv on all the server hosts:
-
-    Then on each server in the cluster:
-    $ $HOME/jaguar/bin/jdbstart
-    
-    ( To stop the server, execute: $ $HOME/jaguar/bin/jdbstop )
-
-
-  Finally you can use the jag client program to connect to any of the server hosts
-  to perform various data operations.
-
-
+The files $HOME/jaguar/conf/server.conf and $HOME/jaguar/conf/host.conf must 
+be copied to all the hosts in the cluster.
+	   

@@ -1,16 +1,10 @@
-Jaguar - C++ Lightning Fast Datastore
+Jaguar - C++ Lightning Fast NoSQL Datastore
 
 HOW TO INSTALL:
 ==============================================================================
 
 As any user, execute:
 $ ./install.sh
-
-HOW To Compile jbench
-==============================================================================
-In your installed client directory:
-
-g++ -Iinclude -o jbench jbench.cc  lib/libadbclientcpp.a  /usr/lib64/libz.a -lpthread
 
 
 HOW TO USE INTERACTIVE SHELL:
@@ -32,42 +26,3 @@ The help command prints out subjects on which help instruction can be provided.
 The help commands will print out examples of how to insert, select, update and
 delete records.
 
-
-HOW TO DO BENCHMARKING TESTS:
----------------------------------------------------------------------------------
-
-jbench  [-u USERNAME -p PASSWORD -h HOST:PORT -n IERATIONS -c CONCURRENCY -s SHOWFLAG]
-        [-f SQLFILE] [-r I:U:S] 
-    USERNAME     (username of an account. Default: test)
-    PASSWORD     (password of an account. Default: test)
-    HOST:PORT    (database host and port. Default: 127.0.0.1:8888)
-    DATABASE     (database name. Default: test)
-    TABLE        (table name. Default: test)
-    IERATIONS    (Number of query iterations. Default: 1)
-    CONCURRENCY  (Number of concurrent queries in each iteration. Default: 1)
-    SQLFILE      (Full path of file containing query statements.)
-    SHOWFLAG     (Whether to print query results: 1 for Yes, 0 for No. Default: 0)
-    SQLFILE      (Optional. File containting RQL commands.)
-    I:U:S        (Optional. Number of Inserts, Updates, Selects in each test unit.)
-
-Example:
-	./jbench -u test -p test -h 127.0.0.1:8888 -r "1000:0:0" 
-	(This will create table test123 and insert 1000 records.)
-
-	./jbench -u test -p test -h 127.0.0.1:8888 -r "1000:10:0" 
-	(This will create table test123, insert 1000 records, and update 10 records.)
-
-	./jbench -u test -p test  -h 127.0.0.1:8888 -r "0:0:1000"
-	(This will select data 1000 times from table test123.)
-
-	./jbench -u test -p test  -h 127.0.0.1:8888 -r "0:10000:1000" 
-	(This will perform update 1000 times, and select 1000 times in table test123.)
-
-	./jbench -u test -p test  -h 127.0.0.1:8888 -c 3 -r "1000:0:0" 
-	(This will create table test123 and insert 1000 records in 3 concurrent threads.)
-
-	./jbench -u test -p test  -h 127.0.0.1:8888 -n 10 -f test.sql 
-	(This will execute commands in file test.sql and repeat 10 times.)
-
-
-=====
