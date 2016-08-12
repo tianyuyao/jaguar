@@ -1,21 +1,19 @@
 
-Jaguar -- next generation big data platform for enterprises
+Jaguar -- Fastest NoSQL Database for Enterprises
 
-Jaguar is a scalable, fast analytical platform for big data. It uses an 
+Jaguar is a scalable, fast NoSQL database for big data. It uses an 
 innovative array-indexing technology in data access path. Compared to traditional 
 B+Tree in relational database software, Jaguar employs plain arrays in data indexing.
 Arrays have excellent data locality, read-ahead, and caching properties. The core
 storage and indexing engine is 10X - 50X faster than B+Tree, therefore table join 
-and range search operations are extremely fast.
+and range search are extremely fast.
 
 Jaguar uses the simplest data model: array. All data items are placed in a huge
-flat array sorted by its primary keys. Also secondary-indexes are maintained as data 
+flat sparse array sorted by its primary keys. Also secondary-indexes are maintained as data 
 is updated in the data array. The indexes are also stored in arrays.
 
 Even in a complex distributed enviroment, data is still logically presented as an array
 to the user. From the perspective of users or programmers, a table is just an array of
 sorted data items, and so is an index. Physically the table is striped over a number of
 hosts in the cluster. No other data platforms can allow programmers to directly access 
-the underlying data structure. Jaguar offers an extremely powerful platform to conduct
-map-reduce as well as non-mapreduce tasks over large amount of data that are sorted,
-indexed, stored over hundreds or even thousands of computer hosts.
+the underlying data structure. 
