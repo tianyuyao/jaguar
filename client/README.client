@@ -20,7 +20,7 @@ $ jag -u test -p test -d test
 
 HOW TO DO QUERY
 ---------------------------------------------------------------------------------
-jaguar> help
+jaguar> help;
 
 The help command prints out subjects on which help instruction can be provided.
 The help commands will print out examples of how to insert, select, update and
