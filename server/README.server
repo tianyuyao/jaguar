@@ -19,17 +19,24 @@ $ export PATH=$PATH:$HOME/jaguar/bin
 
 
 
-HOW TO START/STOP Jaguar Server:
+HOW TO START Jaguar Server:
 ============================================================================
-
 
     Make sure you have used jadmin to create your database and users.
 
     Then on each server in the cluster:
     $ $HOME/jaguar/bin/jaguarstart
     
-    To stop the server:
-    $ $HOME/jaguar/bin/jaguarstop
+
+HOW TO STOP Jaguar Server:
+============================================================================
+
+    To stop all the jaguar servers in the cluster: 
+    $ $HOME/jaguar/bin/jaguarstop -all
+
+    To stop one server on a host:
+    $ $HOME/jaguar/bin/jaguarstop -s    # for safe shutdown
+    $ $HOME/jaguar/bin/jaguarstop       # for force shutdown
     
 
 HOW TO CONFIGURE JAGUAR
